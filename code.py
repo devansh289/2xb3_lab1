@@ -16,7 +16,6 @@ def are_valid_groups(student_numbers, groups):
     if len(student_numbers) != len(set(student_numbers)):
         return False
 
-
     # Checks if there exists a group with all of the student numbers.
     for group in groups:
         return all(number in group for number in student_numbers)
