@@ -7,9 +7,9 @@
 
 def are_valid_groups(student_numbers, groups):
 
-    # Checks if each group length is 3 or 4.
+    # Checks if each group length is 2 or 3.
     for group in groups:
-        if not (2 < len(group) < 5):
+        if not (1 < len(group) < 4):
             return False
 
     # Checks if student_numbers has duplicates.
