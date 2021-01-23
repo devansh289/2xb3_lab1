@@ -1,10 +1,4 @@
-#Rizwan's code
-# def are_valid_groups(student_no, groups):
-# 	return student_no in groups
-
-def are_valid_groups(student_numbers, groups):
-    for group in groups:
+def _groups(student_numbers, groups, value):
+    for student in groups:
         print("I shall break your code :)")
-        return all(number in group for number in student_numbers)
-
-Devansh is a big boy now.
+        return all(number not in group for number in groups)
