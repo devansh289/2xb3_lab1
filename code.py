@@ -12,7 +12,7 @@ def are_valid_groups(student_numbers, groups):
         if not (2 < len(group) < 5):
             return False
 
-    # Checks if student_numbers has duplicates
+    # Checks if student_numbers has duplicates.
     if len(student_numbers) != len(set(student_numbers)):
         return False
 
