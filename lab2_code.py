@@ -24,7 +24,16 @@ def append_test():
         start = timeit.default_timer()
         sample_list.append(random.randint(1,1000000))
         end = timeit.default_timer()
-        with open("nums.txt", "a") as f:
+        with open("values.txt", "a") as f:
             f.write(f"{end - start}\n")
 
-append_test()
+def append_test2():
+    for i in range(100000):
+        a = [random.randint(0,100000) for _ in range(100)]
+        start = timeit.default_timer()
+        sample_list.append(a)
+        end = timeit.default_timer()
+        with open("values.txt", "a") as f:
+            f.write(f"{end - start}\n")
+
+append_test2()
