@@ -1,5 +1,6 @@
 """ Start of functions we created"""
 
+# In place quicksort implementation
 def quicksort_helper(L,start,end):
     #The pivot element is chosen to be the last one in the list
     pivot_element = L[end]
@@ -146,63 +147,30 @@ def quad_copy(L):
     return (quad_copy(l) + [pivot1] + quad_copy(ll) + [pivot2] + quad_copy(m) + [pivot3]
             + quad_copy(rr) + [pivot4] + quad_copy(r))
 
-# Python program for implementation of MergeSort
-def mergeSort(arr):
-    if len(arr) > 1:
+# Implementation of Insertion Sort
+def insertion_sort(L):
+    for i in range(1,len(L)):
+    
+        # Value to compare others compare against
+        currentvalue = L[i]
+        p1 = i
+        
+        #Swap previous values which are smaller
+        while p1 >= 1 and L[p1-1] > currentvalue:
+            L[p1] = L[p1-1]
+            p1 -= 1
+        
+        # Swap end as it has not been taken care of yet
+        L[p1] = currentvalue
 
-        # Finding the mid of the array
-        mid = len(arr)//2
-
-        # Dividing the array elements
-        L = arr[:mid]
-
-        # into 2 halves
-        R = arr[mid:]
-
-        # Sorting the first half
-        mergeSort(L)
-
-        # Sorting the second half
-        mergeSort(R)
-
-        i = j = k = 0
-
-        # Copy data to temp arrays L[] and R[]
-        while i < len(L) and j < len(R):
-            if L[i] < R[j]:
-                arr[k] = L[i]
-                i += 1
-            else:
-                arr[k] = R[j]
-                j += 1
-            k += 1
-
-        # Checking if any element was left
-        while i < len(L):
-            arr[k] = L[i]
-            i += 1
-            k += 1
-
-        while j < len(R):
-            arr[k] = R[j]
-            j += 1
-            k += 1
-
-# Function to do insertion sort 
-def insertionSort(arr): 
-  
-    # Traverse through 1 to len(arr) 
-    for i in range(1, len(arr)): 
-  
-        key = arr[i] 
-  
-        # Move elements of arr[0..i-1], that are 
-        # greater than key, to one position ahead 
-        # of their current position 
-        j = i-1
-        while j >= 0 and key < arr[j] : 
-                arr[j + 1] = arr[j] 
-                j -= 1
-        arr[j + 1] = key 
+# Final sort Implementation
+def finalSort(L):
+    # Call quicksort_helper if list has more than 15 elements
+    # Call insertion_sort if list has between 2 and 15 elements
+    # List is already sorted if less than 2 elements
+    if len(L) > 15:
+        quicksort_helper(L,0,len(L)-1)
+    elif len(L) > 1:
+        insertion_sort(L)
 
 ''' End of functions we created'''

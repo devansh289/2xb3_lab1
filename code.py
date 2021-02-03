@@ -1,75 +1,41 @@
-import random
-import math
 import timeit
+from lab3, sorts import *
 
-def my_quicksort(L):
-    copy = quicksort_copy(L)
-    for i in range(len(L)):
-        L[i] = copy[i]
-
-def quicksort_copy(L):
-    if len(L) < 2:
-        return L
-    pivot = L[0]
-    left, right = [], []
-    for num in L[1:]:
-        if num < pivot:
-            left.append(num)
-        else:
-            right.append(num)
-    return quicksort_copy(left) + [pivot] + quicksort_copy(right)
-
-
-def create_random_list(n):
-    L = []
-    for _ in range(n):
-        L.append(random.randint(1,n))
-    return L
-
-
-def create_near_sorted_list(n, factor):
-    L = create_random_list(n)
-    L.sort()
-    for _ in range(math.ceil(n*factor)):
-        index1 = random.randint(0, n-1)
-        index2 = random.randint(0, n-1)
-        L[index1], L[index2] = L[index2], L[index1]
-    return L
-
+#Calculate time for quicksort_inplace with random values
 def quicksort_random_test():
-    for i in range(10000):
-        f = open('quicksort.txt', 'a')
+    f = open('quicksort.txt', 'a')
 
+    for i in range(10000):
+    
         test_list = create_random_list(i)
 
         start_time = timeit.default_timer()
-        my_quicksort(test_list)
+        quicksort_inplace(test_list)
         end_time = timeit.default_timer()
 
         f.write(str(end_time - start_time) + '\n')
 
-        f.close()
+    f.close()
 
-    open('quicksort.txt', 'a')
-
+#Calculate time for my_quicksort with almost sorted values
 def quicksort_nearly_sorted_test():
+    f = open('quicksort.txt', 'a')
     for i in range(10000):
-        f = open('quicksort.txt', 'a')
-
+        
         test_list = create_near_sorted_list(i, 0.1)
 
         start_time = timeit.default_timer()
-        my_quicksort(test_list)
+        quicksort_inplace(test_list)
         end_time = timeit.default_timer()
 
         f.write(str(end_time - start_time) + '\n')
 
-        f.close()
+    f.close()
 
-    open('quicksort.txt', 'a')
-
-def small_list_test():
+#Calculate time for quicksort_inplace with small lists
+def quicksort_small_list_test():
     f = open('quicksort.txt', 'a')
+
     for i in range(20):
         values = []
         for _ in range(10000):
@@ -77,7 +43,27 @@ def small_list_test():
             test_list = create_random_list(i)
 
             start_time = timeit.default_timer()
-            my_quicksort(test_list)
+            quicksort_inplace(test_list)
+            end_time = timeit.default_timer()
+
+            values.append(end_time - start_time)
+
+        f.write(str(sum(values)/len(values)) + '\n')
+        values = []
+    f.close()
+
+#Calculate time for insertion_sort with small lists
+def insertion_small_list_test():
+    f = open('quicksort.txt', 'a')
+
+    for i in range(20):
+        values = []
+        for _ in range(10000):
+        
+            test_list = create_random_list(i)
+
+            start_time = timeit.default_timer()
+            insertion_sort(test_list)
             end_time = timeit.default_timer()
 
             values.append(end_time - start_time)
