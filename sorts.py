@@ -1,25 +1,32 @@
-def partition(L, start, end):
+def quicksort_helper(L,start,end):
+    #The pivot element is chosen to be the last one in the list
+    pivot_element = L[end]
     
-    index = start
-    pivot = L[index]
-
-    while start < end:
-        while start < len(L) and L[start] <= pivot:
-            start+=1
-
-        while L[end] > pivot:
-            end-=1
-
-        if start < end:
-            L[start], L[end] = L[end], L[start]
-
-    L[index], L[end] = L[end], L[index]
-
-    return end
+    # Pointer to keep track of value greater than pivot
+    p1 = start
     
-def quick_sort(L, start, end):
+    #Check to see if array has atleast two element
     if start < end:
-        partition_index = partition(L, start, end)
-        quick_sort(L, start, partition_index-1)
-        quick_sort(L, partition_index+1, end)
-
+        
+        for i in range(start,end+1):
+            # If current value <= pivot then swap
+            if L[i]<=pivot_element:
+                L[p1], L[i] = L[i], L[p1]
+                
+                # Move pointer to next element
+                if i != end:
+                    p1+=1
+        
+        #Sort the left subarray
+        quicksort_helper(L, start, p1-1)
+        
+        #Sort the right subarray
+        quicksort_helper(L, p1+1, end)
+    return L
+   
+def quicksort_inplace(L):
+    
+    # Only call quicksort_helper if list has atleast 2 elements
+    if len(L)>1:
+        quicksort_helper(L,0,len(L)-1)
+    else:
