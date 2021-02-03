@@ -1,21 +1,53 @@
-# Function to check if each student number is in a group.
-# Arg student_numbers is a list of strings.
-# Arg groups is a list of list of strings.
+import sorts
 
-# Example1: are_valid_groups([1,5], [[1,2,3], [3,4,5]]) returns False
-# Example1: are_valid_groups([1,3,2], [[1,2,3], [3,4,5]]) returns True
+def quicksort_random_test():
+    for i in range(10000):
+        f = open('quicksort.txt', 'a')
 
-def are_valid_groups(student_numbers, groups):
+        test_list = sorts.create_random_list(i, 0.1)
 
-    # Checks if each group length is 2 or 3.
-    for group in groups:
-        if not (1 < len(group) < 4):
-            return False
+        start_time = timeit.default_timer()
+        my_quicksort(test_list)
+        end_time = timeit.default_timer()
 
-    # Checks if student_numbers has duplicates.
-    if len(student_numbers) != len(set(student_numbers)):
-        return False
+        f.write(str(end_time - start_time) + '\n')
 
-    # Checks if there exists a group with all of the student numbers.
-    for group in groups:
-        return all(number in group for number in student_numbers)
+        f.close()
+
+    open('quicksort.txt', 'a')
+
+def quicksort_nearly_sorted_test():
+    for i in range(10000):
+        f = open('quicksort.txt', 'a')
+
+        test_list = create_near_sorted_list(i, 0.1)
+
+        start_time = timeit.default_timer()
+        my_quicksort(test_list)
+        end_time = timeit.default_timer()
+
+        f.write(str(end_time - start_time) + '\n')
+
+        f.close()
+
+    open('quicksort.txt', 'a')
+
+def small_list_test():
+    f = open('quicksort.txt', 'a')
+    for i in range(20):
+        values = []
+        for _ in range(10000):
+        
+            test_list = create_random_list(i)
+
+            start_time = timeit.default_timer()
+            my_quicksort(test_list)
+            end_time = timeit.default_timer()
+
+            values.append(end_time - start_time)
+
+        f.write(str(sum(values)/len(values)) + '\n')
+        values = []
+    f.close() 
+
+
