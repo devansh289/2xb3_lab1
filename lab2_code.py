@@ -2,8 +2,6 @@ import timeit
 import random
 
 # Copy Method
-
-
 def copy_time(list_to_copy):
     duplicate = list_to_copy.copy()
 
@@ -12,10 +10,8 @@ def copy_time(list_to_copy):
 sample_list = []
 
 # Loop to time list with increasing number of integers
-
-
 def copy_test():
-    for _ in range(500):
+    for _ in range(5000):
 
         start_time = timeit.default_timer()
         copy_time(sample_list)
@@ -53,8 +49,6 @@ append_test2()
 lookup_list = random.sample(range(1, 1000001), 1000000)
 
 # Lookup time method
-
-
 def lookup_time(list_to_lookup, index):
     list_to_lookup[index]
 
