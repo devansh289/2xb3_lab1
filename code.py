@@ -116,9 +116,9 @@ def quicksort_avg_case_test():
     f.close()
 
 
-def time_test(sort, L):
+def time_test(sort_function, L):
     start_time = timeit.default_timer()
-    sort(L)
+    sort_function(L)
     end_time = timeit.default_timer()
     return end_time - start_time
 
@@ -127,14 +127,18 @@ def near_sort_analysis():
     f = open('worstcase.txt', 'a')
 
     for n in range(1000):
-        test_list = create_near_sorted_list(1000, (n + 1) / 1000)
 
-        quick_sort_time = time_test(quicksort_inplace, test_list)
-        merge_sort_time = time_test(merge_sort, test_list)
-        tim_sort_time = time_test(sorted, test_list)
+        quick_sort_time = time_test(
+            quicksort_inplace, create_near_sorted_list(1000, (n+1)/1000))
+        merge_sort_time = time_test(
+            merge_sort, create_near_sorted_list(1000, (n+1)/1000))
+        tim_sort_time = time_test(
+            sorted, create_near_sorted_list(1000, (n+1)/1000))
+        insertion_sort_time = time_test(
+            insertion_sort, create_near_sorted_list(1000, (n+1)/1000))
 
-        f.write(str(n) + '\t' + str(quick_sort_time) + '\t' +
-                str(merge_sort_time) + '\t' + str(tim_sort_time) + '\r')
+        f.write(str((n+1)/1000) + '\t' + str(quick_sort_time) + '\t' + str(merge_sort_time) + '\t' + str(tim_sort_time) +
+                '\t' + str(insertion_sort_time) + '\r')
     f.close()
 
 
