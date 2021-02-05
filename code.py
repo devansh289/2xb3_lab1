@@ -86,6 +86,7 @@ def insertion_small_list_test():
 # Worst case analysis of quicksort
 sys.setrecursionlimit(10**6)
 
+
 def quicksort_multi(quicksort, runs):
     total = 0
     for _ in range(runs):
@@ -94,6 +95,7 @@ def quicksort_multi(quicksort, runs):
         end = timeit.default_timer()
         total += end - start
     return total / runs
+
 
 def quick_multi_pivot_test():
     f = open("quick_multipivot_data.txt", "a")
@@ -105,14 +107,16 @@ def quick_multi_pivot_test():
                 str(quicksort_multi(quad_pivot_quicksort(a), 1)) + "\n")
     f.close()
 
+
 quick_multi_pivot_test()
+
 
 def quicksort_worst_case_test():
     f = open('worstcase.txt', 'a')
 
     for n in range(10000):
         test_list = create_random_list(n)
-        test_list.sort(reverse=True)
+        test_list.sort()
 
         start_time = timeit.default_timer()
         quicksort_inplace(test_list)
@@ -160,4 +164,3 @@ def near_sort_analysis():
         f.write(str((n+1)/1000) + '\t' + str(quick_sort_time) + '\t' + str(merge_sort_time) + '\t' + str(tim_sort_time) +
                 '\t' + str(insertion_sort_time) + '\r')
     f.close()
-
