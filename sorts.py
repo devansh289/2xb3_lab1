@@ -72,9 +72,11 @@ def mergesort_bottom(L):
 def mergesort_three(L):
     if len(L) <= 1:
         return
+    # Mid points for divide
     mid1 = len(L)//3
     mid2 = mid1*2
     left, mid, right = L[:mid1], L[mid1:mid2], L[mid2:]
+    # When length of array is 2
     if len(L) <= 2:
         left, mid, right = L[:1], [], L[1:]
 
@@ -94,6 +96,7 @@ def merge_three(left, mid, right):
     i = j = k = 0
 
     while i < len(left) or j < len(mid) or k < len(right):
+        # When 2 arrays are positioned and only one array is left
         if i >= len(left) and j >= len(mid):
             L.append(right[k])
             k += 1
@@ -103,6 +106,7 @@ def merge_three(left, mid, right):
         elif j >= len(mid) and k >= len(right):
             L.append(left[i])
             i += 1
+        # When 1 array is positioned
         elif i >= len(left):
             if mid[j] <= right[k]:
                 L.append(mid[j])
@@ -124,6 +128,7 @@ def merge_three(left, mid, right):
             else:
                 L.append(left[i])
                 i += 1
+        # When no array is fully positioned yet
         else:
             if left[i] <= mid[j]:
                 if left[i] <= right[k]:
