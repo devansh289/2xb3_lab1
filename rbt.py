@@ -48,13 +48,25 @@ class RBNode:
         return "(" + str(self.value) + "," + self.colour + ")"
 
     def __repr__(self):
-         return "(" + str(self.value) + "," + self.colour + ")"
+        return "(" + str(self.value) + "," + self.colour + ")"
 
     def rotate_right(self):
-        #TODO
+        x = self
+        left_child = self.left
+        right_child = self.right
+        self.left = left_child.left
+        self.right = x
+        self.right.left = left_child.right
+        self.right.right = right_child
 
     def rotate_left(self):
-        #TODO
+        x = self
+        left_child = self.left
+        right_child = self.right
+        self.left = x
+        self.left.left = left_child
+        self.left.right = right_child.left
+        self.right = right_child.right
 
 
 
