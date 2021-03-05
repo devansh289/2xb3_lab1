@@ -58,6 +58,7 @@ class RBNode:
         self.right = x
         self.right.left = left_child.right
         self.right.right = right_child
+        return left_child
 
     def rotate_left(self):
         x = self
@@ -67,7 +68,7 @@ class RBNode:
         self.left.left = left_child
         self.left.right = right_child.left
         self.right = right_child.right
-
+        return right_child
 
 
 class RBTree:
@@ -112,14 +113,58 @@ class RBTree:
                 self.__insert(node.right, value)
 
     def fix(self, node):
-        #You may alter code in this method if you wish, it's merely a guide.
+        # You may alter code in this method if you wish, it's merely a guide.
         if node.parent == None:
             node.make_black()
         while node != None and node.parent != None and node.parent.is_red(): 
-            #TODO
+            if node.get_uncle().is_red():
+                node.parent.make_black()
+                node.get_uncle().make_black()
+                node.parent.parent.make_red()
+                node = node.parent.parent
+            else:
+                # left left case
+                if node.parent.left.is_red() and node.parent.parent.left.is_red():
+                    grandfather = node.parent.parent
+                    x = node.parent.parent.rotate_right()
+                    if grandfather == self.root:
+                        self.root = x
+                    x.make_black()
+                    x.right.make_red()
+                    node = node.parent
+
+                # left right case
+                if node.parent.right.is_red() and node.parent.parent.left.is_red():
+                    node = node.parent.rotate_left()
+                    parent = node.parent
+                    node = node.parent.rotate_right()
+                    if parent == self.root:
+                        self.root = node
+                    node.make_black()
+                    node.right.make_red()
+
+                # right right case
+                if node.parent.right.is_red() and node.parent.parent.right.is_red():
+                    grandfather = node.parent.parent
+                    x = node.parent.parent.rotate_left()
+                    if grandfather == self.root:
+                        self.root = x
+                    x.make_black()
+                    x.left.make_red()
+                    node = node.parent
+
+                # right left case
+                if node.parent.left.is_red() and node.parent.parent.right.is_red():
+                    node = node.parent.rotate_right()
+                    parent = node.parent
+                    node = node.parent.rotate_left()
+                    if parent == self.root:
+                        self.root = node
+                    node.make_black()
+                    node.left.make_red()
+
         self.root.make_black()
-                    
-        
+
     def __str__(self):
         if self.is_empty():
             return "[]"
