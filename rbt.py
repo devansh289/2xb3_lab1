@@ -51,13 +51,26 @@ class RBNode:
         return "(" + str(self.value) + "," + self.colour + ")"
 
     def rotate_right(self):
-        left_child = self.left
-        if left_child.right is not None:
-            left_child.right.parent = self
-        if self.parent is not None:
-            left_child.parent = self.parent
-        self.parent = left_child
-        return self
+        # left_child = self.left
+        # if left_child is not None:
+        #     if left_child.right is not None:
+        #         left_child.right.parent = self
+        #     if self.parent is not None:
+        #         left_child.parent = self.parent
+        # self.parent = left_child
+        # return self
+        y = self.left
+        self.left = y.right
+        if y.right != None:
+            y.right.parent = self
+
+        y.parent = self.parent
+        if self == self.parent.right:
+            self.parent.right = y
+        else:
+            self.parent.left = y
+        y.right = self
+        self.parent = y
         # x = self
         # left_child = self.left
         # right_child = self.right
@@ -68,13 +81,26 @@ class RBNode:
         # return left_child
 
     def rotate_left(self):
-        right_child = self.right
-        if right_child.left is not None:
-            right_child.left.parent = self
-        if self.parent is not None:
-            right_child.parent = self.parent
-        self.parent = right_child
-        return self
+        # right_child = self.right
+        # if right_child is not None:
+        #     if right_child.left is not None:
+        #         right_child.left.parent = self
+        #     if self.parent is not None:
+        #         right_child.parent = self.parent
+        # self.parent = right_child
+        # return self
+        y = self.right
+        self.right = y.left
+        if y.left != None:
+            y.left.parent = self
+
+        y.parent = self.parent
+        if self == self.parent.left:
+            self.parent.left = y
+        else:
+            self.parent.right = y
+        y.left = self
+        self.parent = y
         # x = self
         # left_child = self.left
         # right_child = self.right
@@ -130,7 +156,7 @@ class RBTree:
         # You may alter code in this method if you wish, it's merely a guide.
         if node.parent == None:
             node.make_black()
-        while node != None and node.parent != None and node.parent.is_red(): 
+        if node != None and node.parent != None and node.parent.is_red():
             if node.get_uncle() is not None and node.get_uncle().is_red():
                 node.parent.make_black()
                 node.get_uncle().make_black()
@@ -173,9 +199,9 @@ class RBTree:
                 # right left case
                 if node.parent.left != None and node.parent.parent.right != None:
                     if node.parent.left.is_red() and node.parent.parent.right.is_red():
-                        node = node.parent.rotate_right()
+                        node.parent.rotate_right()
                         parent = node.parent
-                        node = node.parent.rotate_left()
+                        node.parent.rotate_left()
                         if parent == self.root:
                             self.root = node
                         node.make_black()
