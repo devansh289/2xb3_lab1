@@ -169,6 +169,6 @@ def has_cycle(g):
 
 def is_connected(g):
     for i in g.adj:
-        if len(g.adj[i]) != 0:
-            return True
-    return False
+        if len(g.adj[i]) == 0:
+            return False
+    return True
