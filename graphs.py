@@ -139,7 +139,7 @@ def DFS3(G, node1):
         if not marked[current_node]:
             marked[current_node] = True
             for node in G.adj[current_node]:
-                if node not in pred:
+                if node not in pred and node != 0:
                     pred[node] = current_node
                 S.append(node)
     return pred
