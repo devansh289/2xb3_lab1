@@ -109,6 +109,42 @@ def DFS2(G, node1, node2):
     return False
 
 
+def BFS3(G, node1):
+    pred = {}
+    Q = deque([node1])
+    marked = {node1: True}
+    for node in G.adj:
+        if node != node1:
+            marked[node] = False
+
+    while len(Q) != 0:
+        current_node = Q.popleft()
+        for node in G.adj[current_node]:
+            if not marked[node]:
+                Q.append(node)
+                marked[node] = True
+                if node not in pred:
+                    pred[node] = current_node
+    return pred
+
+
+def DFS3(G, node1):
+    pred = {}
+    S = [node1]
+    marked = {}
+    for node in G.adj:
+        marked[node] = False
+    while len(S) != 0:
+        current_node = S.pop()
+        if not marked[current_node]:
+            marked[current_node] = True
+            for node in G.adj[current_node]:
+                if node not in pred:
+                    pred[node] = current_node
+                S.append(node)
+    return pred
+
+
 def has_cycle(g):
     seen = [False for _ in range(len(g.adj))]
 
