@@ -107,3 +107,32 @@ def DFS2(G, node1, node2):
             for node in G.adj[current_node]:
                 S.append((node, current_path + [node]))
     return False
+
+
+def has_cycle(g):
+    seen = [False for _ in range(len(g.adj))]
+
+    def has_cycle_rec(g, v, inner_seen, predessor):
+        inner_seen[v] = True
+
+        for i in g.adjacent_nodes(v):
+            if not inner_seen[i]:
+                if (has_cycle_rec(g, i, inner_seen, v)):
+                    return True
+            elif predessor != i:
+                return True
+
+        return False
+
+    for j in range(len(g.adj)):
+        if not seen[j]:
+            if (has_cycle_rec(g, j, seen, -1)):
+                return True
+    return False
+
+
+def is_connected(g):
+    for i in g.adj:
+        if len(g.adj[i]) != 0:
+            return True
+    return False
