@@ -1,12 +1,12 @@
-from mst import *
-from lab8 import *
+from mst.py import *
+from lab8.py import *
 import random
 import timeit
 
 
 def random_weighted_graph(v):
     graph = WeightedGraph(v)
-    weights = list(range(0, v+1000))
+    weights = list(range(v, 1000))
     random.shuffle(weights)
     nodes = list(range(0, v))
 
@@ -21,16 +21,14 @@ def random_weighted_graph(v):
 
 def performance_test():
     f = open("performance.txt", "a")
-    for v in range(2, 100):
+    for v in range(2, 500):
         random_graph = random_weighted_graph(v)
         start_time = timeit.default_timer()
-        prim1(random_graph)
-        end_time = timeit.default_timer()
         prim2(random_graph)
-        end_time2 = timeit.default_timer()
+        end_time = timeit.default_timer()
+        random_graph = random_weighted_graph(v)
 
-        f.write(str(v) + '\t' + str(end_time-start_time) + '\t' +
-                str(end_time2 - end_time) + '\r')
+        f.write(str(v) + '\t' + str(end_time-start_time) + '\r')
 
 
 performance_test()
