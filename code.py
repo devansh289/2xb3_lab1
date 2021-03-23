@@ -4,23 +4,6 @@ import random
 import timeit
 
 
-# def test():
-#     f = open("data.txt", "a")
-#     for i in range(100):
-#         my_graph = None
-#         cycle = 0
-#         no_cycle = 0
-#         for _ in range(100):
-#             my_graph = gen_random_graph(100, i)
-
-#             if has_cycle(my_graph):
-#                 cycle += 1
-#             else:
-#                 no_cycle += 1
-
-#         f.write(f"{i}\t{cycle/(no_cycle+cycle)}\n")
-#     f.close()
-
 def random_weighted_graph(v):
     graph = WeightedGraph(v)
     weights = list(range(0, v+1000))
