@@ -1,4 +1,4 @@
-#Undirected graph using an adjacency list
+# Undirected graph using an adjacency list
 class WeightedGraph:
 
     def __init__(self, n):
