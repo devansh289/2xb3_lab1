@@ -46,3 +46,48 @@ def prim1(graph):
 
         vertices_visited += 1
     return ans
+
+
+def prim2(graph):
+    # Graph to output as answer
+    ans = WeightedGraph(graph.number_of_nodes())
+    visited = [False] * graph.number_of_nodes()
+
+    # Number of nodes visited
+    vertices_visited = 0
+
+    # Heap for current edges we can choose from
+    adjacent_edges = [Element(float('inf'), i)
+                      for i in range(graph.number_of_nodes())]
+    adjacent_edges = MinHeap(adjacent_edges)
+
+    # Node we are on
+    current_node = adjacent_edges.extract_min().value
+
+    # While not all nodes are visited
+    while vertices_visited < graph.number_of_nodes():
+        visited[current_node] = True
+
+        # Update heap with correct values
+        for edge in graph.adjacent_nodes(current_node):
+            adjacent_edges.decrease_key(edge[0], edge[1])
+
+        ''' WHAT TO DO NEXT ?!?!?!'''
+
+        chosen_edge = None
+
+        for edge in adjacent_edges:
+            chosen_edge = edge
+            edges = list(edge[1])
+
+            # Node which is not yet visited
+            new_node = edges[0] if visited[edges[1]] else edges[1]
+
+            # If edge does not create loop
+            if not (visited[edges[0]] and visited[edges[1]]):
+                ans.add_edge(edges[0], edges[1], edge[0])
+                current_node = new_node
+                break
+
+        vertices_visited += 1
+    return ans
