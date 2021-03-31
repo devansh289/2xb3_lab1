@@ -60,3 +60,57 @@ def performance_test_bf_time():
 
 performance_test_bf_time()
 # performance_test_bf_distance()
+
+g1 = DirectedWeightedGraph()
+for _ in range(4):
+    g1.add_node(_)
+g1.add_edge(0,2,-2)
+g1.add_edge(1,0,4)
+g1.add_edge(1,2,-3)
+g1.add_edge(3,1,-1)
+g1.add_edge(2,3, 2)
+
+g2 = DirectedWeightedGraph()
+for _ in range(5):
+    g2.add_node(_)
+g2.add_edge(0,1,3)
+g2.add_edge(0,3,-7)
+g2.add_edge(0,4,8)
+g2.add_edge(1,2,1)
+g2.add_edge(1,3,4)
+g2.add_edge(3,2,-2)
+g2.add_edge(4,3,3)
+
+g3 = DirectedWeightedGraph()
+for _ in range(7):
+    g3.add_node(_)
+g3.add_edge(0,4,-1)
+g3.add_edge(1,0,1)
+g3.add_edge(1,3,2)
+g3.add_edge(2,1,2)
+g3.add_edge(2,5,-8)
+g3.add_edge(3,0,-4)
+g3.add_edge(3,4,3)
+g3.add_edge(4,1,7)
+g3.add_edge(5,1,5)
+g3.add_edge(5,2,10)
+
+
+def mystery_test():
+    f = open("mystery.txt", "a")
+    for v in range(2, 100):
+        if v != (4, 5, 7):
+            random_graph = create_random_complete_graph(v, 1000)
+        elif v == 4:
+            random_graph = g1
+        elif v == 5:
+            random_graph = g2
+        else:
+            random_graph = g3
+        start_time = timeit.default_timer()
+        mystery(random_graph)
+        end_time = timeit.default_timer()
+
+        f.write(str(v) + '\t' + str(end_time-start_time) + '\r')
+
+# mystery_test()
