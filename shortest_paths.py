@@ -1,7 +1,7 @@
 def bellman_ford_approx(G, source, k):
     pred = {}  # Predecessor dictionary. Isn't returned, but here for your understanding
     dist = {}  # Distance dictionary
-    times_visited = {} #Determining how many times a node is visited
+    times_visited = {}  # Determining how many times a node is visited
     nodes = list(G.adj.keys())
 
     # Initialize distances

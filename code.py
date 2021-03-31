@@ -1,16 +1,20 @@
-from mst.py import *
-from lab8.py import *
+from lab9 import *
+from shortest_paths import *
 import random
 import timeit
 
 
-def random_weighted_graph(v):
-    graph = WeightedGraph(v)
-    weights = list(range(v, 1000))
-    random.shuffle(weights)
-    nodes = list(range(0, v))
+# Generate weighted graph for bellman ford tests
+def random_weighted_graph_bf():
+    graph = DirectedWeightedGraph()
+    for i in range(1000):
+        graph.add_node(i)
 
-    while(len(nodes) > 1):
+    weights = list(range(-1000, 1000))
+    random.shuffle(weights)
+    nodes = list(range(0, 1000))
+
+    while len(nodes) > 1:
         node_a = random.sample(nodes, 1)[0]
         nodes.remove(node_a)
         node_b = random.sample(nodes, 1)[0]
@@ -19,16 +23,41 @@ def random_weighted_graph(v):
     return graph
 
 
-def performance_test():
-    f = open("performance.txt", "a")
-    for v in range(2, 500):
-        random_graph = random_weighted_graph(v)
-        start_time = timeit.default_timer()
-        prim2(random_graph)
-        end_time = timeit.default_timer()
-        random_graph = random_weighted_graph(v)
+# Test for calculating sum of distances
+def performance_test_bf_distance():
+    f1 = open("bf_values.txt", "a")
+    f2 = open("bf_approx_values.txt", "a")
+    for i in range(1, 100):
+        random_graph = random_weighted_graph_bf()
+        dist = bellman_ford(random_graph, 0)
+        f1.write(str(total_dist(dist)) + '\r')
 
-        f.write(str(v) + '\t' + str(end_time-start_time) + '\r')
+        dist = bellman_ford_approx(random_graph, 0, i)
+        f2.write(str(total_dist(dist)) + '\r')
 
 
-performance_test()
+# def performance_test_bf_time():
+#     f1 = open("bf_values.txt", "a")
+#     f2 = open("bf_approx_values.txt", "a")
+#     for i in range(1, 1001):
+#         random_graph = random_weighted_graph()
+#
+#         start_time = timeit.default_timer()
+#         bellman_ford(random_graph, 0)
+#         end_time = timeit.default_timer()
+#
+#         bf_time = end_time-start_time
+#
+#
+#         start_time = timeit.default_timer()
+#         bellman_ford_approx(random_graph, 0, i)
+#         end_time = timeit.default_timer()
+#
+#         bf_approx_time = end_time-start_time
+#
+#         f1.write(str(bf_time) + '\r')
+#         f2.write(str(bf_approx_time) + '\r')
+
+
+# performance_test_bf_time()
+performance_test_bf_distance()
