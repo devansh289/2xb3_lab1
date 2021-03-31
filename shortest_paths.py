@@ -1,3 +1,5 @@
+from lab9 import *
+
 def bellman_ford_approx(G, source, k):
     pred = {}  # Predecessor dictionary. Isn't returned, but here for your understanding
     dist = {}  # Distance dictionary
@@ -19,8 +21,6 @@ def bellman_ford_approx(G, source, k):
                     pred[neighbour] = node
                     times_visited[neighbour] += 1
     return dist
-import min_heap
-from lab9 import *
 
 
 def all_pairs_dijkstra(G):

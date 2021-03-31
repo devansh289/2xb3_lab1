@@ -36,28 +36,27 @@ def performance_test_bf_distance():
         f2.write(str(total_dist(dist)) + '\r')
 
 
-# def performance_test_bf_time():
-#     f1 = open("bf_values.txt", "a")
-#     f2 = open("bf_approx_values.txt", "a")
-#     for i in range(1, 1001):
-#         random_graph = random_weighted_graph()
-#
-#         start_time = timeit.default_timer()
-#         bellman_ford(random_graph, 0)
-#         end_time = timeit.default_timer()
-#
-#         bf_time = end_time-start_time
-#
-#
-#         start_time = timeit.default_timer()
-#         bellman_ford_approx(random_graph, 0, i)
-#         end_time = timeit.default_timer()
-#
-#         bf_approx_time = end_time-start_time
-#
-#         f1.write(str(bf_time) + '\r')
-#         f2.write(str(bf_approx_time) + '\r')
+def performance_test_bf_time():
+    f1 = open("bf_values.txt", "a")
+    f2 = open("bf_approx_values.txt", "a")
+    for i in range(1, 1000):
+        random_graph = random_weighted_graph_bf()
+
+        start_time = timeit.default_timer()
+        bellman_ford(random_graph, 0)
+        end_time = timeit.default_timer()
+
+        bf_time = end_time - start_time
+
+        start_time = timeit.default_timer()
+        bellman_ford_approx(random_graph, 0, i)
+        end_time = timeit.default_timer()
+
+        bf_approx_time = end_time - start_time
+
+        f1.write(str(bf_time) + '\r')
+        f2.write(str(bf_approx_time) + '\r')
 
 
-# performance_test_bf_time()
-performance_test_bf_distance()
+performance_test_bf_time()
+# performance_test_bf_distance()
